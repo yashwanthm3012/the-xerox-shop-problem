@@ -4,10 +4,10 @@ A modern, microservices-based system for managing print requests at a Xerox shop
 
 
 
-## 📜 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📧 Contact
+## Contact
 
-For questions or support, please contact [support@xerox-shop.example.com](mailto:wepandas4@gmail.com)
+For questions or support, please contact [wepandas4@gmail.com](mailto:wepandas4@gmail.com)
