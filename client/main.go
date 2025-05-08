@@ -9,11 +9,14 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/pdfcpu/pdfcpu/pkg/api"
 )
 
 func main() {
 	app := fiber.New()
+
+	app.Use(cors.New())
 
 	app.Post("/upload", func(c *fiber.Ctx) error {
 		// Get file
