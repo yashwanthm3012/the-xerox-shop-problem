@@ -4,6 +4,8 @@ A modern, microservices-based system for managing print requests at a Xerox shop
 
 ## Backend
 Go
+Javascript
+React
 
 ## License
 
