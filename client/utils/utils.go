@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-// mergePageRanges parses "1,2-4,7" → []int{1,2,3,4,7}
+// MergePageRanges parses "1,2-4,7" → []int{1,2,3,4,7}
 func MergePageRanges(ranges string) ([]int, error) {
 	var result []int
 	parts := strings.Split(ranges, ",")
@@ -45,8 +45,8 @@ func MergePageRanges(ranges string) ([]int, error) {
 	return result, nil
 }
 
-// forwardToShopStorage sends the file to another microservice via POST
-func ForwardToShopStorage(filePath, fileName string) error {
+// ForwardToShopStorage sends file + refID to shop storage microservice
+func ForwardToShopStorage(filePath, fileName, refID string) error {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return err
@@ -55,6 +55,8 @@ func ForwardToShopStorage(filePath, fileName string) error {
 
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
+
+	// Add file
 	part, err := writer.CreateFormFile("file", filepath.Base(fileName))
 	if err != nil {
 		return err
@@ -62,8 +64,15 @@ func ForwardToShopStorage(filePath, fileName string) error {
 	if _, err := io.Copy(part, file); err != nil {
 		return err
 	}
+
+	// Add refID field
+	if err := writer.WriteField("refID", refID); err != nil {
+		return err
+	}
+
 	writer.Close()
 
+	// Create request
 	req, err := http.NewRequest("POST", "http://localhost:4000/store", body)
 	if err != nil {
 		return err
