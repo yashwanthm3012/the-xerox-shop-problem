@@ -73,7 +73,7 @@ func main() {
 			}
 		}
 
-		err = utils.ForwardToShopStorage(tempPath, fileHeader.Filename)
+		err = utils.ForwardToShopStorage(tempPath, fileHeader.Filename, refID)
 		if err != nil {
 			return c.Status(500).SendString("Failed to forward to storage: " + err.Error())
 		}
