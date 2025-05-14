@@ -53,26 +53,25 @@ function FileUpload() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md space-y-6 font-sans">
-      <h2 className="text-2xl font-bold text-gray-800 text-center">Upload PDF for Printing</h2>
+    <div className="max-w-md mx-auto mt-10 p-6 bg-gray-200 border border-gray-500 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] font-mono text-sm space-y-6">
+      <h2 className="text-xl font-bold text-black text-center border-b border-gray-500 pb-2">Print Portal</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Select File</label>
+          <label className="block text-xs font-bold text-gray-800 mb-1">Select File</label>
           <input
             type="file"
             onChange={(e) => setFile(e.target.files[0])}
-            required
-            className="mt-1 block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            className="w-full text-xs p-1 bg-white border border-gray-400 shadow-inner"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Print Type</label>
+          <label className="block text-xs font-bold text-gray-800 mb-1">Print Type</label>
           <select
             value={printType}
             onChange={(e) => setPrintType(e.target.value)}
-            className="mt-1 block w-full border border-gray-300 rounded-lg p-2 text-gray-700"
+            className="w-full text-xs p-1 bg-white border border-gray-400 shadow-inner"
           >
             <option value="bw">Black & White</option>
             <option value="color">Color</option>
@@ -83,59 +82,56 @@ function FileUpload() {
         {printType === "both" ? (
           <>
             <div>
-              <label className="block text-sm font-medium text-gray-700">B/W Pages</label>
+              <label className="block text-xs font-bold text-gray-800 mb-1">B/W Pages</label>
               <input
                 type="text"
                 placeholder="e.g., 1-3,5"
                 value={bwPages}
                 onChange={(e) => setBwPages(e.target.value)}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                className="w-full text-xs p-1 bg-white border border-gray-400 shadow-inner"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Color Pages</label>
+              <label className="block text-xs font-bold text-gray-800 mb-1">Color Pages</label>
               <input
                 type="text"
                 placeholder="e.g., 4,6"
                 value={colorPages}
                 onChange={(e) => setColorPages(e.target.value)}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                className="w-full text-xs p-1 bg-white border border-gray-400 shadow-inner"
               />
             </div>
           </>
         ) : (
           <div>
-            <label className="block text-sm font-medium text-gray-700">Pages</label>
+            <label className="block text-xs font-bold text-gray-800 mb-1">Pages</label>
             <input
               type="text"
               placeholder="e.g., 1-5,7"
               value={pages}
               onChange={(e) => setPages(e.target.value)}
-              required
-              className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+              className="w-full text-xs p-1 bg-white border border-gray-400 shadow-inner"
             />
           </div>
         )}
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition"
+          className="w-full bg-gray-300 text-black font-bold py-2 border border-black shadow-[2px_2px_0px_rgba(0,0,0,0.8)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
         >
-          Upload
+          ▶ Upload
         </button>
       </form>
 
       {error && (
-        <div className="bg-red-100 text-red-700 p-3 rounded-lg text-sm">
+        <div className="bg-red-100 text-red-700 p-2 border border-red-400 shadow-inner text-xs">
           <strong>Error:</strong> {error}
         </div>
       )}
 
       {response && (
-        <div className="bg-green-100 text-green-800 p-3 rounded-lg text-sm">
-          <h3 className="font-semibold mb-1">Upload Successful!</h3>
+        <div className="bg-green-100 text-green-800 p-2 border border-green-400 shadow-inner text-xs">
+          <h3 className="font-bold mb-1">Upload Successful!</h3>
           <pre className="whitespace-pre-wrap">{JSON.stringify(response, null, 2)}</pre>
         </div>
       )}
