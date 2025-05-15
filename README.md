@@ -1,4 +1,4 @@
-# Xerox Shop Problem – Microservices Architecture
+# Xerox Shop Problem
 
 A modern, microservices-based system to streamline print request management in a Xerox shop. This system enables customers to upload files and request print jobs via a web client, while shop owners manage and view these jobs through a dedicated desktop application.
 
