@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function FileUpload() {
   const [file, setFile] = useState(null);
+  const [fileURL, setFileURL] = useState(null); // For preview
   const [printType, setPrintType] = useState("bw");
   const [bwPages, setBwPages] = useState("");
   const [colorPages, setColorPages] = useState("");
   const [pages, setPages] = useState("");
   const [response, setResponse] = useState(null);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setFileURL(url);
+      return () => URL.revokeObjectURL(url); // Cleanup
+    }
+    setFileURL(null);
+  }, [file]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,10 +71,24 @@ function FileUpload() {
           <label className="block text-xs font-bold text-gray-800 mb-1">Select File</label>
           <input
             type="file"
+            accept=".pdf"
             onChange={(e) => setFile(e.target.files[0])}
             className="w-full text-xs p-1 bg-white border border-gray-400 shadow-inner"
           />
         </div>
+
+        {fileURL && file?.type === "application/pdf" && (
+          <div>
+            <label className="block text-xs font-bold text-gray-800 mb-1">Preview</label>
+            <div className="border border-gray-400 shadow-inner bg-white h-64 overflow-hidden">
+              <iframe
+                src={fileURL}
+                className="w-full h-full"
+                title="PDF Preview"
+              ></iframe>
+            </div>
+          </div>
+        )}
 
         <div>
           <label className="block text-xs font-bold text-gray-800 mb-1">Print Type</label>
