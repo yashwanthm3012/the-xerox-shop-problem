@@ -1,4 +1,5 @@
 ## Ignore
 
 directory_struct.md
-client/uploads
+client/tmp
+client/.air.toml
