@@ -3,3 +3,5 @@
 directory_struct.md
 client/tmp
 client/.air.toml
+tmp
+client/uploads
