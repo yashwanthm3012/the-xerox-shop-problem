@@ -18,6 +18,21 @@ func main() {
 	// Upload Route
 	app.Post("/upload", func(c *fiber.Ctx) error {
 
+		// Get the file
+		file, err := c.FormFile("document")
+		if err != nil {
+			return err
+		}
+
+		// Make sure that upload directory exists
+		err = c.SaveFile(file, "./uploads/"+file.Filename)
+		if err != nil {
+			return err
+		}
+
+		// Get the print type bw, color or both
+		printType := c.FormValue("printType")
+
 		// Black and white Pages
 		bwPages := c.FormValue("bwPages")
 
@@ -27,11 +42,49 @@ func main() {
 		// Number of Copies
 		numCopies := c.FormValue("numCopies")
 
+		//Validate based on printType
+		var (
+			valid    = true
+			errorMsg string
+		)
+
+		switch printType {
+		case "bw":
+			if bwPages == "" {
+				valid = false
+				errorMsg = "bwPages are required for black and white print"
+			}
+
+		case "color":
+			if colorPages == "" {
+				valid = false
+				errorMsg = "colorPages are required for color print"
+			}
+
+		case "both":
+			if colorPages == "" || bwPages == "" {
+				valid = false
+				errorMsg = "page ranges required for both color and black and white print"
+			}
+
+		default:
+			valid = false
+			errorMsg = "Print type must be bw, color or both"
+		}
+
+		if !valid {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": errorMsg,
+			})
+		}
+
 		return c.JSON(fiber.Map{
 			"message":    "upload successfull",
+			"file":       file.Filename,
 			"bwPages":    bwPages,
 			"colorPages": colorPages,
 			"copies":     numCopies,
+			"printType":  printType,
 		})
 	})
 
