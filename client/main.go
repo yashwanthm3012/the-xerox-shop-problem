@@ -86,6 +86,12 @@ func main() {
 			return err
 		}
 
+		// Random 4-digit hexadecimal number
+		hexNumber, err := utils.Generate4DigitHex()
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		return c.JSON(fiber.Map{
 			"message":    "upload successfull",
 			"file":       file.Filename,
@@ -94,6 +100,7 @@ func main() {
 			"copies":     numCopies,
 			"printType":  printType,
 			"numPages":   numPages,
+			"ID":         hexNumber,
 		})
 	})
 
