@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/yashwanthm3012/client/utils"
 )
 
 func main() {
@@ -25,7 +26,8 @@ func main() {
 		}
 
 		// Make sure that upload directory exists
-		err = c.SaveFile(file, "./uploads/"+file.Filename)
+		uploadPath := "./uploads/" + file.Filename
+		err = c.SaveFile(file, uploadPath)
 		if err != nil {
 			return err
 		}
@@ -78,6 +80,12 @@ func main() {
 			})
 		}
 
+		// Number of Pages
+		numPages, err := utils.CountPages(uploadPath)
+		if err != nil {
+			return err
+		}
+
 		return c.JSON(fiber.Map{
 			"message":    "upload successfull",
 			"file":       file.Filename,
@@ -85,6 +93,7 @@ func main() {
 			"colorPages": colorPages,
 			"copies":     numCopies,
 			"printType":  printType,
+			"numPages":   numPages,
 		})
 	})
 
