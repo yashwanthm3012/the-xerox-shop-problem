@@ -5,3 +5,4 @@ client/tmp
 client/.air.toml
 tmp
 client/uploads
+client/extracted
