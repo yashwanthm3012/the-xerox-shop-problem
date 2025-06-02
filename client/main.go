@@ -32,6 +32,9 @@ func main() {
 			return err
 		}
 
+		// Set output path for extracted PDF
+		outputPath := "./extracted/extracted_" + file.Filename
+
 		// Get the print type bw, color or both
 		printType := c.FormValue("printType")
 
@@ -90,6 +93,12 @@ func main() {
 		hexNumber, err := utils.Generate4DigitHex()
 		if err != nil {
 			log.Fatal(err)
+		}
+
+		// To extract the specified page numbers
+		err = utils.ExtractPages(uploadPath, outputPath, bwPages)
+		if err != nil {
+			return c.Status(500).SendString(err.Error())
 		}
 
 		return c.JSON(fiber.Map{
