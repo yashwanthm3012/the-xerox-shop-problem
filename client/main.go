@@ -58,12 +58,22 @@ func main() {
 			if bwPages == "" {
 				valid = false
 				errorMsg = "bwPages are required for black and white print"
+			} else {
+				err := utils.ExtractPages(uploadPath, outputPath, bwPages)
+				if err != nil {
+					return c.Status(500).SendString("Failed to extract pages" + err.Error())
+				}
 			}
 
 		case "color":
 			if colorPages == "" {
 				valid = false
 				errorMsg = "colorPages are required for color print"
+			} else {
+				err := utils.ExtractPages(uploadPath, outputPath, colorPages)
+				if err != nil {
+					return c.Status(500).SendString("Cannot extract pages" + err.Error())
+				}
 			}
 
 		case "both":
@@ -96,10 +106,10 @@ func main() {
 		}
 
 		// To extract the specified page numbers
-		err = utils.ExtractPages(uploadPath, outputPath, bwPages)
-		if err != nil {
-			return c.Status(500).SendString(err.Error())
-		}
+		// err = utils.ExtractPages(uploadPath, outputPath, bwPages)
+		// if err != nil {
+		// 	return c.Status(500).SendString(err.Error())
+		// }
 
 		return c.JSON(fiber.Map{
 			"message":    "upload successfull",
