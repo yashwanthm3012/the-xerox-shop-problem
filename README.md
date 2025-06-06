@@ -26,10 +26,6 @@ The system is composed of the following components:
 - Desktop app interface for shop owners to view and manage print jobs.
 - Local file storage for simplicity and control – no cloud dependency.
 
-## License
-
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
 For questions or support, please contact [wepandas4@gmail.com](mailto:wepandas4@gmail.com)
