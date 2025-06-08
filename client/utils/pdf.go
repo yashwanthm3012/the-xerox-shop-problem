@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/pdfcpu/pdfcpu/pkg/api"
 )
@@ -24,11 +25,18 @@ func ExtractPages(inputPath, outputPath, pageRange string) error {
 		return fmt.Errorf("please specifiy the page ranges")
 	}
 
-	err := api.TrimFile(inputPath, outputPath, []string{pageRange}, nil)
-	if err != nil {
-		return fmt.Errorf("failed to extract pages: %w", err)
+	// Split comma seperated ranges into slices
+	ranges := strings.Split(pageRange, ",")
+
+	// Trim whitespace in page ranges
+	for i, r := range ranges {
+		ranges[i] = strings.TrimSpace(r)
 	}
 
-	return err
+	err := api.TrimFile(inputPath, outputPath, ranges, nil)
+	if err != nil {
+		return fmt.Errorf("failed to extract pages : %w", err)
+	}
 
+	return nil
 }
