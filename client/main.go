@@ -106,10 +106,10 @@ func main() {
 		}
 
 		// To extract the specified page numbers
-		// err = utils.ExtractPages(uploadPath, outputPath, bwPages)
-		// if err != nil {
-		// 	return c.Status(500).SendString(err.Error())
-		// }
+		err = utils.ExtractPages(uploadPath, outputPath, bwPages)
+		if err != nil {
+			return c.Status(500).SendString(err.Error())
+		}
 
 		return c.JSON(fiber.Map{
 			"message":    "upload successfull",
