@@ -4,12 +4,17 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/yashwanthm3012/client/db"
+	"github.com/yashwanthm3012/client/routes"
 	"github.com/yashwanthm3012/client/utils"
 )
 
 func main() {
+	db.InitDB() // Connect to MySQL
 	//Initilize a new fiber app
 	app := fiber.New()
+
+	routes.SetupUserRoutes(app) //routes
 
 	// Simple Route
 	app.Get("/", func(c *fiber.Ctx) error {
