@@ -2,7 +2,7 @@
 
 directory_struct.md
 client/tmp
-client/.air.toml
+# client/.air.toml
 tmp
 client/uploads
 client/extracted
